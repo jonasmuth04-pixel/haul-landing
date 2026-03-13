@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haul — See it. Scan it. Shop it.</title>
+    <meta name="description" content="Screenshot any outfit and instantly find where to buy every piece. Haul uses AI to identify clothing from your screenshots.">
+    <meta name="theme-color" content="#005A2B">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Haul — See it. Scan it. Shop it.">
+    <meta property="og:description" content="Scan any outfit and instantly find where to buy every piece.">
+    <meta property="og:url" content="https://haul-app.com">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================
+           CSS VARIABLES
+           ============================================ */
+        :root {
+            --white: #FFFFFF;
+            --off-white: #F6F6F5;
+            --bg-secondary: #F0F0EF;
+            --black: #0A0A0A;
+            --text-secondary: rgba(0,0,0,0.55);
+            --text-tertiary: rgba(0,0,0,0.35);
+            --green: #005A2B;
+            --green-bright: #34C759;
+            --green-light: rgba(0,90,43,0.08);
+            --green-glow: rgba(52,199,89,0.15);
+            --border: rgba(0,0,0,0.06);
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        /* ============================================
+           RESET & BASE
+           ============================================ */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--white);
+            color: var(--black);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+
+        .container {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ============================================
+           NAV
+           ============================================ */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 16px 0;
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--green);
+        }
+
+        .nav-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            background: var(--black);
+            color: var(--white);
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .nav-cta:hover {
+            background: #222;
+            transform: translateY(-1px);
+        }
+
+        .nav-cta svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* ============================================
+           HERO
+           ============================================ */
+        .hero {
+            padding-top: 140px;
+            padding-bottom: 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, var(--green-light) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px 6px 8px;
+            background: var(--green-glow);
+            border: 1px solid rgba(0,90,43,0.15);
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--green);
+            margin-bottom: 32px;
+        }
+
+        .hero-badge-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--green-bright);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 7vw, 72px);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -2px;
+            margin-bottom: 24px;
+            color: var(--black);
+        }
+
+        .hero h1 .highlight {
+            color: var(--green);
+        }
+
+        .hero p {
+            font-size: clamp(17px, 2vw, 20px);
+            color: var(--text-secondary);
+            max-width: 520px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+
+        .hero-ctas {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            background: var(--black);
+            color: var(--white);
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: #1a1a1a;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        .btn-primary svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 28px;
+            background: transparent;
+            color: var(--black);
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            border-color: rgba(0,0,0,0.15);
+            background: var(--off-white);
+        }
+
+        /* Phone Mockup */
+        .hero-phone {
+            margin-top: 64px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .phone-frame {
+            width: 280px;
+            height: 580px;
+            background: var(--black);
+            border-radius: 40px;
+            padding: 12px;
+            box-shadow:
+                0 40px 80px rgba(0,0,0,0.15),
+                0 0 0 1px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            border-radius: 30px;
+            overflow: hidden;
+        }
+
+        .phone-screen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* ============================================
+           HOW IT WORKS
+           ============================================ */
+        .how-it-works {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
+        .section-label {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--green);
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: clamp(32px, 4.5vw, 48px);
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 480px;
+            line-height: 1.6;
+            margin-bottom: 64px;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .step {
+            background: var(--off-white);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px 32px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+            border-color: rgba(0,90,43,0.15);
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--black);
+            color: var(--white);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .step-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--green-light);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .step-icon svg {
+            width: 28px;
+            height: 28px;
+            color: var(--green);
+        }
+
+        .step h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.3px;
+        }
+
+        .step p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ============================================
+           FEATURES
+           ============================================ */
+        .features {
+            padding: 100px 0;
+            background: var(--off-white);
+        }
+
+        .features .section-label,
+        .features .section-title,
+        .features .section-subtitle {
+            text-align: center;
+        }
+
+        .features .section-subtitle {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 36px 32px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--green-light);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .feature-icon svg {
+            width: 24px;
+            height: 24px;
+            color: var(--green);
+        }
+
+        .feature-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.2px;
+        }
+
+        .feature-card p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ============================================
+           SOURCES (Where you can scan from)
+           ============================================ */
+        .sources {
+            padding: 100px 0;
+            background: var(--white);
+            text-align: center;
+        }
+
+        .source-logos {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+            margin-top: 48px;
+        }
+
+        .source-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .source-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .source-icon svg {
+            width: 64px;
+            height: 64px;
+        }
+
+        .source-item span {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        /* ============================================
+           CTA SECTION
+           ============================================ */
+        .cta-section {
+            padding: 100px 0 120px;
+            text-align: center;
+            background: var(--black);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            bottom: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0,90,43,0.2) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cta-section .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(36px, 5vw, 56px);
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 40px;
+        }
+
+        .btn-white {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            background: var(--white);
+            color: var(--black);
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-white:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(255,255,255,0.15);
+        }
+
+        .btn-white svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        footer {
+            padding: 40px 0;
+            background: var(--black);
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        footer .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-left {
+            font-size: 13px;
+            color: rgba(255,255,255,0.35);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-links a {
+            font-size: 13px;
+            color: rgba(255,255,255,0.4);
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 768px) {
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                letter-spacing: -1px;
+            }
+
+            .source-logos {
+                gap: 24px;
+            }
+
+            .phone-frame {
+                width: 240px;
+                height: 500px;
+            }
+
+            footer .container {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* ============================================
+           ANIMATIONS (scroll-triggered)
+           ============================================ */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <div class="container">
+            <div class="nav-logo">Haul</div>
+            <a href="#download" class="nav-cta">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                Download
+            </a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-badge">
+                <div class="hero-badge-dot"></div>
+                Available on iOS
+            </div>
+
+            <h1>
+                See it. Scan it.<br>
+                <span class="highlight">Shop it.</span>
+            </h1>
+
+            <p>
+                Screenshot any outfit you see &mdash; share it to Haul and instantly find where to buy every piece.
+            </p>
+
+            <div class="hero-ctas">
+                <a href="#download" class="btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                    Download for iOS
+                </a>
+                <a href="#how-it-works" class="btn-secondary">
+                    How it works &darr;
+                </a>
+            </div>
+
+            <!-- Phone mockup -->
+            <div class="hero-phone">
+                <div class="phone-frame">
+                    <div class="phone-screen">
+                        <img src="app-screenshot.png" alt="Haul app — scan any outfit" loading="eager">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-label fade-up">How it works</div>
+            <h2 class="section-title fade-up">Three steps to any look.</h2>
+            <p class="section-subtitle fade-up">No more searching for hours. Haul identifies every item in seconds.</p>
+
+            <div class="steps">
+                <div class="step fade-up">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" /></svg>
+                    </div>
+                    <h3>Screenshot it</h3>
+                    <p>See an outfit you love on Instagram, TikTok, or anywhere? Screenshot it and share it to Haul.</p>
+                </div>
+
+                <div class="step fade-up" style="transition-delay: 0.1s">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /></svg>
+                    </div>
+                    <h3>AI finds every piece</h3>
+                    <p>Haul detects each item &mdash; jackets, shoes, bags, accessories &mdash; and finds matching products instantly.</p>
+                </div>
+
+                <div class="step fade-up" style="transition-delay: 0.2s">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" /></svg>
+                    </div>
+                    <h3>Shop from 1000+ stores</h3>
+                    <p>Compare prices, save favorites, and buy directly &mdash; from Zara and H&amp;M to Gucci and Balenciaga.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features">
+        <div class="container">
+            <div class="section-label fade-up">Features</div>
+            <h2 class="section-title fade-up">Built for fashion lovers.</h2>
+            <p class="section-subtitle fade-up">Everything you need to discover and shop your next outfit.</p>
+
+            <div class="feature-grid">
+                <div class="feature-card fade-up">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z" /></svg>
+                    </div>
+                    <h3>Share Extension</h3>
+                    <p>Take a screenshot, tap share, and send it to Haul &mdash; results in seconds, right from any app.</p>
+                </div>
+
+                <div class="feature-card fade-up" style="transition-delay: 0.1s">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" /></svg>
+                    </div>
+                    <h3>Price Alerts</h3>
+                    <p>Save a product and get notified when the price drops. Never miss a deal on something you love.</p>
+                </div>
+
+                <div class="feature-card fade-up" style="transition-delay: 0.15s">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" /></svg>
+                    </div>
+                    <h3>Favorites</h3>
+                    <p>Save the pieces you love to your personal collection. Come back anytime to compare and shop.</p>
+                </div>
+
+                <div class="feature-card fade-up" style="transition-delay: 0.2s">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" /></svg>
+                    </div>
+                    <h3>AI-Powered Detection</h3>
+                    <p>Detects brands, colors, and categories automatically. Works with any style &mdash; streetwear, luxury, casual.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WORKS WITH -->
+    <section class="sources">
+        <div class="container">
+            <div class="section-label fade-up">Works with</div>
+            <h2 class="section-title fade-up">Scan from anywhere.</h2>
+            <p class="section-subtitle fade-up" style="max-width: 480px; margin-left: auto; margin-right: auto;">Screenshot an outfit from any app, share it to Haul &mdash; done.</p>
+
+            <div class="source-logos fade-up">
+                <div class="source-item">
+                    <div class="source-icon">
+                        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                            <defs><linearGradient id="ig-grad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#feda75"/><stop offset="25%" style="stop-color:#fa7e1e"/><stop offset="50%" style="stop-color:#d62976"/><stop offset="75%" style="stop-color:#962fbf"/><stop offset="100%" style="stop-color:#4f5bd5"/></linearGradient></defs>
+                            <rect width="64" height="64" rx="16" fill="url(#ig-grad)"/>
+                            <rect x="16" y="16" width="32" height="32" rx="10" stroke="white" stroke-width="3" fill="none"/>
+                            <circle cx="32" cy="32" r="8" stroke="white" stroke-width="3" fill="none"/>
+                            <circle cx="44" cy="20" r="2.5" fill="white"/>
+                        </svg>
+                    </div>
+                    <span>Instagram</span>
+                </div>
+                <div class="source-item">
+                    <div class="source-icon">
+                        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="64" height="64" rx="16" fill="#000000"/>
+                            <path d="M42.4 26.5a9.2 9.2 0 01-5.4-1.7v12.5a10.7 10.7 0 01-10.7 10.7A10.7 10.7 0 0115.6 37.3a10.7 10.7 0 0110.7-10.7c.5 0 1 .03 1.5.1v5.3c-.5-.14-1-.2-1.5-.2a5.4 5.4 0 00-5.4 5.4 5.4 5.4 0 005.4 5.4 5.4 5.4 0 005.5-5.2l.05-22.4h5.1a9.2 9.2 0 008.4 8.2v5.3z" fill="white"/>
+                        </svg>
+                    </div>
+                    <span>TikTok</span>
+                </div>
+                <div class="source-item">
+                    <div class="source-icon">
+                        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="64" height="64" rx="16" fill="#E60023"/>
+                            <path d="M32 15c-9.4 0-17 7.6-17 17 0 7.2 4.4 13.4 10.7 16-.15-1.3-.28-3.4.06-4.86l2-8.5s-.5-1-.5-2.5c0-2.36 1.37-4.12 3.07-4.12 1.45 0 2.15 1.09 2.15 2.39 0 1.46-.93 3.63-1.4 5.65-.4 1.7.85 3.07 2.5 3.07 3 0 5.32-3.17 5.32-7.75 0-4.05-2.9-6.88-7.06-6.88-4.8 0-7.63 3.6-7.63 7.33 0 1.45.56 3 1.26 3.85a.5.5 0 01.12.49l-.47 1.92c-.07.32-.25.38-.57.23-2.12-.99-3.44-4.08-3.44-6.57 0-5.35 3.88-10.26 11.2-10.26 5.88 0 10.45 4.19 10.45 9.8 0 5.84-3.68 10.54-8.8 10.54-1.72 0-3.33-.89-3.88-1.95l-1.06 4.03c-.38 1.47-1.4 3.32-2.1 4.44 1.58.49 3.26.76 5 .76 9.4 0 17-7.6 17-17s-7.6-17-17-17z" fill="white"/>
+                        </svg>
+                    </div>
+                    <span>Pinterest</span>
+                </div>
+                <div class="source-item">
+                    <div class="source-icon" style="background: var(--off-white); border: 1px solid var(--border);">
+                        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="32" cy="32" r="16" stroke="#999" stroke-width="2.5" fill="none"/>
+                            <ellipse cx="32" cy="32" rx="7" ry="16" stroke="#999" stroke-width="2.5" fill="none"/>
+                            <line x1="16" y1="25" x2="48" y2="25" stroke="#999" stroke-width="2.5"/>
+                            <line x1="16" y1="39" x2="48" y2="39" stroke="#999" stroke-width="2.5"/>
+                        </svg>
+                    </div>
+                    <span>Any app</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section" id="download">
+        <div class="container">
+            <h2 class="fade-up">Stop scrolling.<br>Start shopping.</h2>
+            <p class="fade-up">Free on the App Store. No ads. No subscription.</p>
+            <a href="https://apps.apple.com/app/haul/id0000000000" class="btn-white fade-up">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                Download for iOS
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-left">&copy; 2025 Haul. All rights reserved.</div>
+            <div class="footer-links">
+                <a href="/privacy">Privacy</a>
+                <a href="/terms">Terms</a>
+                <a href="/support">Support</a>
+                <a href="mailto:feedback@haulapp.com">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCROLL ANIMATION -->
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>
