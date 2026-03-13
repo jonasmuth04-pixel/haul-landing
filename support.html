@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support — Haul</title>
+    <meta name="description" content="Get help with the Haul iOS app.">
+    <meta name="theme-color" content="#005A2B">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --white: #FFFFFF;
+            --off-white: #F6F6F5;
+            --black: #0A0A0A;
+            --text-secondary: rgba(0,0,0,0.55);
+            --green: #005A2B;
+            --green-light: rgba(0,90,43,0.08);
+            --border: rgba(0,0,0,0.06);
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { -webkit-font-smoothing: antialiased; }
+        body { font-family: var(--font); background: var(--white); color: var(--black); line-height: 1.7; }
+        a { color: var(--green); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        nav {
+            padding: 16px 0;
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+        nav .container { display: flex; align-items: center; justify-content: space-between; }
+        .nav-logo { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; color: var(--green); }
+
+        .container { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+        .support-header {
+            padding: 80px 0 40px;
+            text-align: center;
+        }
+        .support-header h1 { font-size: 36px; font-weight: 800; letter-spacing: -1px; margin-bottom: 12px; }
+        .support-header p { color: var(--text-secondary); font-size: 17px; max-width: 480px; margin: 0 auto; }
+
+        .contact-card {
+            background: var(--off-white);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin: 48px 0;
+        }
+        .contact-card h2 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+        .contact-card p { color: var(--text-secondary); font-size: 15px; margin-bottom: 24px; }
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            background: var(--black);
+            color: var(--white);
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 15px;
+            font-family: var(--font);
+            transition: transform 0.2s;
+        }
+        .contact-btn:hover { transform: scale(1.03); text-decoration: none; }
+
+        .faq { margin: 48px 0; }
+        .faq h2 {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+            padding: 24px 0;
+        }
+        .faq-item:first-child { border-top: 1px solid var(--border); }
+        .faq-item h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+        .faq-item p { color: var(--text-secondary); font-size: 15px; }
+
+        footer {
+            margin-top: 80px;
+            padding: 32px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+        footer a { color: var(--text-secondary); margin: 0 12px; }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="/" class="nav-logo">Haul</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="support-header">
+            <h1>Support</h1>
+            <p>Need help with Haul? We're here for you.</p>
+        </div>
+
+        <div class="contact-card">
+            <h2>Get in touch</h2>
+            <p>Have a question, found a bug, or want to share feedback? Send us an email and we'll get back to you as soon as possible.</p>
+            <a href="mailto:feedback@haulapp.com" class="contact-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" /></svg>
+                feedback@haulapp.com
+            </a>
+        </div>
+
+        <div class="faq">
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+                <h3>How does Haul work?</h3>
+                <p>Take a screenshot of any outfit you see on Instagram, TikTok, or anywhere else. Share the screenshot to Haul using the iOS share sheet. Our AI identifies every clothing item and finds matching products from over 1000 online stores.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>How do I use the Share Extension?</h3>
+                <p>After taking a screenshot, tap the share button and look for Haul in the share sheet. If you don't see it, scroll right and tap "More" to enable it. Once set up, sharing to Haul takes just one tap.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Why can't Haul identify an item?</h3>
+                <p>Haul works best with clear, well-lit photos where clothing items are visible. Very small items, unusual angles, or low-quality screenshots may be harder to identify. Try sharing a clearer screenshot for better results.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Is Haul free?</h3>
+                <p>Yes, Haul is completely free to use. No ads, no subscription, no hidden costs.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>How do I delete my account?</h3>
+                <p>Open Haul, go to Settings (gear icon), scroll down and tap "Delete Account". This will permanently delete your account and all associated data including scan history, favorites, and price alerts.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Does Haul sell my data?</h3>
+                <p>No. We never sell your personal data. Your screenshots are used only to identify clothing items. See our <a href="/privacy">Privacy Policy</a> for full details.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            &copy; 2026 Haul. All rights reserved.
+            <br style="margin-bottom: 8px;">
+            <a href="/">Home</a>
+            <a href="/privacy">Privacy</a>
+            <a href="/terms">Terms</a>
+            <a href="/support">Support</a>
+        </div>
+    </footer>
+</body>
+</html>
