@@ -799,14 +799,14 @@
             </div>
 
             <p style="font-size: 13px; color: var(--text-tertiary); margin-top: 12px;">
-                Join 0 others waiting for early access. No spam.
+                Join many others waiting for early access. No spam.
             </p>
 
             <!-- Phone mockup -->
             <div class="hero-phone">
                 <div class="phone-frame">
                     <div class="phone-screen">
-                        <video id="demo-video" src="demo.mp4" muted playsinline loop preload="auto" poster="app-screenshot.png"></video>
+                        <video id="demo-video" src="demo.mp4" autoplay muted playsinline loop preload="auto" poster="app-screenshot.png"></video>
                     </div>
                 </div>
             </div>
@@ -994,16 +994,25 @@
         // Auto-play video when scrolled into view
         const video = document.getElementById('demo-video');
         if (video) {
+            // Try immediate play (works if already in viewport)
+            video.play().catch(() => {});
+
             const videoObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        video.play();
+                        video.play().catch(() => {});
                     } else {
                         video.pause();
                     }
                 });
-            }, { threshold: 0.3 });
+            }, { threshold: 0.1 });
             videoObserver.observe(video);
+
+            // Fallback: also try on first user interaction (iOS Safari)
+            document.addEventListener('touchstart', function iosPlay() {
+                video.play().catch(() => {});
+                document.removeEventListener('touchstart', iosPlay);
+            }, { once: true });
         }
 
         // Supabase waitlist
