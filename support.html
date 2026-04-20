@@ -15,23 +15,23 @@
     <style>
         :root {
             --white: #FFFFFF;
-            --off-white: #F6F6F5;
+            --off-white: #141414;
             --black: #0A0A0A;
-            --text-secondary: rgba(0,0,0,0.55);
+            --text-secondary: rgba(255,255,255,0.55);
             --green: #FF6900;
             --green-light: rgba(255,105,0,0.08);
-            --border: rgba(0,0,0,0.06);
+            --border: rgba(255,255,255,0.08);
             --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
         html { -webkit-font-smoothing: antialiased; }
-        body { font-family: var(--font); background: var(--white); color: var(--black); line-height: 1.7; }
+        body { font-family: var(--font); background: var(--black); color: var(--white); line-height: 1.7; }
         a { color: var(--green); text-decoration: none; }
         a:hover { text-decoration: underline; }
 
         nav {
             padding: 16px 0;
-            background: rgba(255,255,255,0.85);
+            background: rgba(10,10,10,0.85);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
@@ -63,8 +63,8 @@
             align-items: center;
             gap: 8px;
             padding: 14px 32px;
-            background: var(--black);
-            color: var(--white);
+            background: var(--white);
+            color: var(--black);
             border-radius: 100px;
             font-weight: 600;
             font-size: 15px;
