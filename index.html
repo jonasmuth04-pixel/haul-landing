@@ -5,11 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Haul — See it. Scan it. Shop it.</title>
     <meta name="description" content="Screenshot any outfit and instantly find where to buy every piece. Haul uses AI to identify clothing from your screenshots.">
-    <meta name="theme-color" content="#005A2B">
+    <meta name="theme-color" content="#FF6900">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="Haul — See it. Scan it. Shop it.">
     <meta property="og:description" content="Scan any outfit and instantly find where to buy every piece.">
+    <meta property="og:image" content="https://haul-app.com/app-icon.png">
     <meta property="og:url" content="https://haul-app.com">
     <meta name="twitter:card" content="summary_large_image">
 
@@ -27,10 +32,10 @@
             --black: #0A0A0A;
             --text-secondary: rgba(0,0,0,0.55);
             --text-tertiary: rgba(0,0,0,0.35);
-            --green: #005A2B;
-            --green-bright: #34C759;
-            --green-light: rgba(0,90,43,0.08);
-            --green-glow: rgba(52,199,89,0.15);
+            --green: #FF6900;
+            --green-bright: #FF8533;
+            --green-light: rgba(255,105,0,0.08);
+            --green-glow: rgba(255,105,0,0.12);
             --border: rgba(0,0,0,0.06);
             --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
@@ -183,7 +188,7 @@
             gap: 8px;
             padding: 14px 24px;
             background: var(--green-glow);
-            border: 1px solid rgba(0,90,43,0.15);
+            border: 1px solid rgba(255,105,0,0.15);
             border-radius: 16px;
             font-size: 15px;
             font-weight: 600;
@@ -213,7 +218,7 @@
         }
 
         .cta-section .waitlist-form input[type="email"]:focus {
-            border-color: var(--green-bright);
+            border-color: var(--green);
         }
 
         .cta-section .waitlist-form input[type="email"]::placeholder {
@@ -264,7 +269,7 @@
             gap: 8px;
             padding: 6px 16px 6px 8px;
             background: var(--green-glow);
-            border: 1px solid rgba(0,90,43,0.15);
+            border: 1px solid rgba(255,105,0,0.15);
             border-radius: 100px;
             font-size: 13px;
             font-weight: 600;
@@ -445,7 +450,7 @@
         .step:hover {
             transform: translateY(-4px);
             box-shadow: 0 12px 40px rgba(0,0,0,0.06);
-            border-color: rgba(0,90,43,0.15);
+            border-color: rgba(255,105,0,0.15);
         }
 
         .step-number {
@@ -626,7 +631,7 @@
             transform: translateX(-50%);
             width: 600px;
             height: 600px;
-            background: radial-gradient(circle, rgba(0,90,43,0.2) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255,105,0,0.2) 0%, transparent 70%);
             pointer-events: none;
         }
 
@@ -762,7 +767,7 @@
     <!-- NAV -->
     <nav>
         <div class="container">
-            <div class="nav-logo">Haul</div>
+            <div class="nav-logo"><img src="app-icon.png" alt="Haul" style="width:32px;height:32px;border-radius:8px;display:inline-block;vertical-align:middle;margin-right:8px;">Haul</div>
             <a href="#cta" class="nav-cta">
                 Join Waitlist
             </a>
@@ -969,7 +974,7 @@
     <!-- FOOTER -->
     <footer>
         <div class="container">
-            <div class="footer-left">&copy; 2025 Haul. All rights reserved.</div>
+            <div class="footer-left">&copy; 2026 Haul. All rights reserved.</div>
             <div class="footer-links">
                 <a href="/privacy">Privacy</a>
                 <a href="/terms">Terms</a>
