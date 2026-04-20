@@ -28,16 +28,17 @@
            ============================================ */
         :root {
             --white: #FFFFFF;
-            --off-white: #F6F6F5;
-            --bg-secondary: #F0F0EF;
+            --off-white: #141414;
+            --bg-secondary: #1a1a1a;
             --black: #0A0A0A;
-            --text-secondary: rgba(0,0,0,0.55);
-            --text-tertiary: rgba(0,0,0,0.35);
+            --text-primary: #FFFFFF;
+            --text-secondary: rgba(255,255,255,0.55);
+            --text-tertiary: rgba(255,255,255,0.35);
             --green: #FF6900;
             --green-bright: #FF8533;
-            --green-light: rgba(255,105,0,0.08);
-            --green-glow: rgba(255,105,0,0.12);
-            --border: rgba(0,0,0,0.06);
+            --green-light: rgba(255,105,0,0.10);
+            --green-glow: rgba(255,105,0,0.15);
+            --border: rgba(255,255,255,0.08);
             --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
@@ -54,8 +55,8 @@
 
         body {
             font-family: var(--font);
-            background: var(--white);
-            color: var(--black);
+            background: var(--black);
+            color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
         }
@@ -79,7 +80,7 @@
             right: 0;
             z-index: 100;
             padding: 16px 0;
-            background: rgba(255,255,255,0.85);
+            background: rgba(10,10,10,0.85);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
@@ -105,8 +106,8 @@
             align-items: center;
             gap: 8px;
             padding: 10px 22px;
-            background: var(--black);
-            color: var(--white);
+            background: var(--white);
+            color: var(--black);
             border-radius: 100px;
             font-size: 14px;
             font-weight: 600;
@@ -114,7 +115,7 @@
         }
 
         .nav-cta:hover {
-            background: #222;
+            background: #e0e0e0;
             transform: translateY(-1px);
         }
 
@@ -144,8 +145,8 @@
             border-radius: 16px;
             font-size: 16px;
             font-family: var(--font);
-            background: var(--white);
-            color: var(--black);
+            background: rgba(255,255,255,0.08);
+            color: var(--white);
             outline: none;
             transition: border-color 0.2s;
         }
@@ -160,8 +161,8 @@
 
         .waitlist-form button {
             padding: 16px 28px;
-            background: var(--black);
-            color: var(--white);
+            background: var(--white);
+            color: var(--black);
             border: none;
             border-radius: 16px;
             font-size: 16px;
@@ -173,7 +174,7 @@
         }
 
         .waitlist-form button:hover {
-            background: #1a1a1a;
+            background: #e0e0e0;
             transform: translateY(-2px);
             box-shadow: 0 8px 30px rgba(0,0,0,0.12);
         }
@@ -298,7 +299,7 @@
             line-height: 1.05;
             letter-spacing: -2px;
             margin-bottom: 24px;
-            color: var(--black);
+            color: var(--white);
         }
 
         .hero h1 .highlight {
@@ -326,8 +327,8 @@
             align-items: center;
             gap: 10px;
             padding: 16px 32px;
-            background: var(--black);
-            color: var(--white);
+            background: var(--white);
+            color: var(--black);
             border-radius: 16px;
             font-size: 16px;
             font-weight: 600;
@@ -337,7 +338,7 @@
         }
 
         .btn-primary:hover {
-            background: #1a1a1a;
+            background: #e0e0e0;
             transform: translateY(-2px);
             box-shadow: 0 8px 30px rgba(0,0,0,0.12);
         }
@@ -353,7 +354,7 @@
             gap: 8px;
             padding: 16px 28px;
             background: transparent;
-            color: var(--black);
+            color: var(--white);
             border: 1.5px solid var(--border);
             border-radius: 16px;
             font-size: 16px;
@@ -363,8 +364,8 @@
         }
 
         .btn-secondary:hover {
-            border-color: rgba(0,0,0,0.15);
-            background: var(--off-white);
+            border-color: rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.05);
         }
 
         /* Phone Mockup */
@@ -381,8 +382,9 @@
             border-radius: 40px;
             padding: 12px;
             box-shadow:
-                0 40px 80px rgba(0,0,0,0.15),
-                0 0 0 1px rgba(0,0,0,0.05);
+                0 40px 80px rgba(0,0,0,0.4),
+                0 0 60px rgba(255,105,0,0.15),
+                0 0 0 1px rgba(255,255,255,0.1);
             position: relative;
         }
 
@@ -406,7 +408,7 @@
            ============================================ */
         .how-it-works {
             padding: 100px 0;
-            background: var(--white);
+            background: var(--black);
         }
 
         .section-label {
@@ -442,7 +444,7 @@
 
         .step {
             background: var(--off-white);
-            border: 1px solid var(--border);
+            border: 1px solid rgba(255,255,255,0.06);
             border-radius: 24px;
             padding: 40px 32px;
             position: relative;
@@ -451,14 +453,14 @@
 
         .step:hover {
             transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.06);
-            border-color: rgba(255,105,0,0.15);
+            box-shadow: 0 12px 40px rgba(255,105,0,0.1);
+            border-color: rgba(255,105,0,0.2);
         }
 
         .step-number {
             width: 40px;
             height: 40px;
-            background: var(--black);
+            background: var(--green);
             color: var(--white);
             border-radius: 12px;
             display: flex;
@@ -507,6 +509,9 @@
             background: var(--off-white);
         }
 
+        .features .section-title,
+        .features .section-label { color: inherit; }
+
         .features .section-label,
         .features .section-title,
         .features .section-subtitle {
@@ -525,8 +530,8 @@
         }
 
         .feature-card {
-            background: var(--white);
-            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.06);
             border-radius: 24px;
             padding: 36px 32px;
             transition: all 0.3s ease;
@@ -534,7 +539,8 @@
 
         .feature-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+            box-shadow: 0 8px 30px rgba(255,105,0,0.08);
+            border-color: rgba(255,105,0,0.15);
         }
 
         .feature-icon {
@@ -572,7 +578,7 @@
            ============================================ */
         .sources {
             padding: 100px 0;
-            background: var(--white);
+            background: var(--black);
             text-align: center;
         }
 
@@ -940,7 +946,7 @@
                     <span>Pinterest</span>
                 </div>
                 <div class="source-item">
-                    <div class="source-icon" style="background: var(--off-white); border: 1px solid var(--border);">
+                    <div class="source-icon" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);">
                         <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <circle cx="32" cy="32" r="16" stroke="#999" stroke-width="2.5" fill="none"/>
                             <ellipse cx="32" cy="32" rx="7" ry="16" stroke="#999" stroke-width="2.5" fill="none"/>
