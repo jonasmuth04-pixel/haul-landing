@@ -241,82 +241,14 @@
         .fc-4 { width: 115px; top: 8%; right: 4%; transform: rotate(4deg); opacity: 0.38; }
         .fc-5 { width: 110px; bottom: 10%; right: 5%; transform: rotate(-4deg); opacity: 0.32; }
 
-        .phone-frame {
-            width: 280px;
-            max-height: 80vh;
-            aspect-ratio: 9 / 19.5;
+        .phone-mockup {
             position: relative;
             z-index: 1;
-            /* Titanium-style frame */
-            background: linear-gradient(145deg, #E8E6E3, #D1CEC9, #E8E6E3);
-            border-radius: 44px;
-            padding: 4px;
-            box-shadow:
-                0 24px 48px rgba(0,0,0,0.10),
-                0 1px 3px rgba(0,0,0,0.08),
-                inset 0 1px 0 rgba(255,255,255,0.6);
-        }
-
-        .phone-inner {
-            width: 100%;
-            height: 100%;
-            background: #000;
-            border-radius: 41px;
-            padding: 4px;
-            position: relative;
-        }
-
-        .phone-screen {
-            width: 100%;
-            height: 100%;
-            border-radius: 38px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* Dynamic Island */
-        .phone-screen::before {
-            content: '';
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90px;
-            height: 28px;
-            background: #000;
-            border-radius: 20px;
-            z-index: 2;
-        }
-
-        .phone-screen img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        /* Side buttons */
-        .phone-frame::before {
-            content: '';
-            position: absolute;
-            right: -2px;
-            top: 22%;
-            width: 3px;
-            height: 44px;
-            background: linear-gradient(180deg, #D1CEC9, #BFBBB6, #D1CEC9);
-            border-radius: 0 2px 2px 0;
-        }
-
-        .phone-frame::after {
-            content: '';
-            position: absolute;
-            left: -2px;
-            top: 18%;
-            width: 3px;
-            height: 28px;
-            background: linear-gradient(180deg, #D1CEC9, #BFBBB6, #D1CEC9);
-            border-radius: 2px 0 0 2px;
-            box-shadow: 0 40px 0 0 #CFCBC6, 0 52px 0 0 #CFCBC6;
+            max-height: 80vh;
+            width: auto;
+            height: auto;
+            max-width: 320px;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.10));
         }
 
         /* ============================================
@@ -390,8 +322,8 @@
                 justify-content: center;
             }
 
-            .phone-frame {
-                width: 220px;
+            .phone-mockup {
+                max-width: 220px;
                 max-height: none;
             }
 
@@ -452,13 +384,7 @@
                 <div class="fc-price">$42</div>
             </div>
 
-            <div class="phone-frame">
-                <div class="phone-inner">
-                    <div class="phone-screen">
-                        <img src="scan-screenshot.png" alt="Haul app — outfit scan with product results">
-                    </div>
-                </div>
-            </div>
+            <img class="phone-mockup" src="phone-mockup.png" alt="Haul app — outfit scan with bounding boxes and product results">
         </div>
 
         <div class="foot">
