@@ -235,14 +235,14 @@
             margin-top: 2px;
         }
 
-        /* Cards in free space only: top-right corner, bottom-left, far right edge */
-        .fc-1 { width: 100px; top: 3%; right: 46%; transform: rotate(-3deg); }
-        .fc-2 { width: 95px;  top: 2%; right: 4%; transform: rotate(4deg); opacity: 0.38; }
-        .fc-3 { width: 100px; bottom: 3%; left: 3%; transform: rotate(2deg); opacity: 0.38; }
-        .fc-4 { width: 95px;  bottom: 3%; left: 16%; transform: rotate(-3deg); opacity: 0.35; }
-        .fc-5 { width: 95px;  bottom: 3%; left: 28%; transform: rotate(2deg); opacity: 0.32; }
-        .fc-6 { width: 100px; bottom: 3%; right: 4%; transform: rotate(-2deg); opacity: 0.35; }
-        .fc-7 { width: 95px;  top: 3%; right: 22%; transform: rotate(3deg); opacity: 0.35; }
+        /* Distributed across all free space — never over text, form, or phone */
+        .fc-1 { width: 95px;  top: 3%;  right: 44%; transform: rotate(-3deg); }           /* top center gap */
+        .fc-2 { width: 90px;  top: 15%; left: 36%;  transform: rotate(3deg); opacity: 0.35; }  /* left, between logo and headline */
+        .fc-3 { width: 95px;  bottom: 8%; left: 3%;  transform: rotate(2deg); opacity: 0.38; } /* bottom-left under form */
+        .fc-4 { width: 90px;  bottom: 4%; left: 22%; transform: rotate(-2deg); opacity: 0.32; }/* bottom-left, next to fc-3 */
+        .fc-5 { width: 95px;  top: 2%;  right: 2%;  transform: rotate(4deg); opacity: 0.38; } /* top-right corner */
+        .fc-6 { width: 90px;  top: 50%; right: 1%;  transform: rotate(-3deg); opacity: 0.35; }/* right edge, mid */
+        .fc-7 { width: 95px;  bottom: 4%; right: 2%; transform: rotate(3deg); opacity: 0.35; }/* bottom-right corner */
 
         .phone-mockup {
             position: relative;
