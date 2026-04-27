@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Haul — See it. Scan it. Shop it.</title>
-    <meta name="description" content="Screenshot any outfit and instantly find where to buy every piece. From the jacket to the shoes.">
+    <meta name="description" content="Screenshot any outfit and instantly find where to buy every piece.">
     <meta name="theme-color" content="#FF6900">
 
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
@@ -23,110 +23,100 @@
     <link href="https://fonts.cdnfonts.com/css/wedges-2" rel="stylesheet">
 
     <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
         :root {
-            --bg: #FAFAFA;
-            --bg-warm: #F5F3F0;
-            --white: #FFFFFF;
+            --bg: #F6F4F1;
             --black: #1A1A1A;
-            --text-primary: #1A1A1A;
-            --text-secondary: #6B6B6B;
-            --text-tertiary: #9A9A9A;
+            --text-secondary: #7A7A7A;
             --accent: #FF6900;
-            --accent-light: #FFF0E6;
-            --accent-hover: #E85E00;
-            --border: rgba(0,0,0,0.08);
             --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-        html {
-            scroll-behavior: smooth;
-            -webkit-font-smoothing: antialiased;
-        }
+        html { -webkit-font-smoothing: antialiased; }
 
         body {
             font-family: var(--font);
             background: var(--bg);
-            color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
+            color: var(--black);
+            height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
 
         a { text-decoration: none; color: inherit; }
-        img { max-width: 100%; display: block; }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 40px;
+        /* ============================================
+           LAYOUT — single screen, two columns
+           ============================================ */
+        .page {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto 1fr auto;
+            grid-template-areas:
+                "logo logo"
+                "copy visual"
+                "footer footer";
+            min-height: 0;
         }
 
         /* ============================================
-           NAV
+           LOGO
            ============================================ */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            padding: 14px 0;
-            background: rgba(250,250,250,0.9);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-        }
-
-        nav .container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .nav-logo {
+        .logo {
+            grid-area: logo;
+            padding: 32px 48px 0;
             font-family: 'Wedges', sans-serif;
             font-size: 28px;
             color: var(--accent);
         }
 
-        .nav-cta {
-            padding: 10px 24px;
-            background: var(--black);
-            color: var(--white);
-            border-radius: 100px;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.2s ease;
-        }
-
-        .nav-cta:hover {
-            background: #333;
-            transform: translateY(-1px);
-        }
-
         /* ============================================
-           WAITLIST FORM
+           LEFT — copy + CTA
            ============================================ */
+        .copy {
+            grid-area: copy;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 48px;
+        }
+
+        .copy h1 {
+            font-size: clamp(36px, 4.5vw, 56px);
+            font-weight: 800;
+            line-height: 1.08;
+            letter-spacing: -1.5px;
+            margin-bottom: 20px;
+            color: var(--black);
+        }
+
+        .copy .sub {
+            font-size: 17px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            max-width: 380px;
+            margin-bottom: 32px;
+        }
+
+        /* Waitlist form */
         .waitlist-form {
             display: flex;
-            align-items: center;
             gap: 10px;
-            max-width: 440px;
-            flex-wrap: wrap;
-            justify-content: center;
+            max-width: 400px;
         }
 
         .waitlist-form input[type="email"] {
             flex: 1;
-            min-width: 220px;
-            padding: 14px 18px;
-            border: 1.5px solid var(--border);
+            padding: 14px 16px;
+            border: 1.5px solid rgba(0,0,0,0.12);
             border-radius: 12px;
             font-size: 15px;
             font-family: var(--font);
-            background: var(--white);
-            color: var(--text-primary);
+            background: #fff;
+            color: var(--black);
             outline: none;
             transition: border-color 0.2s;
         }
@@ -136,42 +126,37 @@
         }
 
         .waitlist-form input[type="email"]::placeholder {
-            color: var(--text-tertiary);
+            color: #aaa;
         }
 
         .waitlist-form button {
-            padding: 14px 24px;
+            padding: 14px 22px;
             background: var(--accent);
-            color: var(--white);
+            color: #fff;
             border: none;
             border-radius: 12px;
             font-size: 15px;
             font-weight: 600;
             font-family: var(--font);
             cursor: pointer;
-            transition: all 0.2s ease;
             white-space: nowrap;
+            transition: all 0.2s ease;
         }
 
         .waitlist-form button:hover {
-            background: var(--accent-hover);
-            transform: translateY(-1px);
+            background: #E85E00;
         }
 
         .waitlist-form button:disabled {
             opacity: 0.6;
             cursor: not-allowed;
-            transform: none;
         }
 
         .waitlist-success {
             display: none;
             align-items: center;
             gap: 8px;
-            padding: 12px 20px;
-            background: var(--accent-light);
-            border-radius: 12px;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 600;
             color: var(--accent);
         }
@@ -187,98 +172,42 @@
 
         .waitlist-error.show { display: block; }
 
-        /* ============================================
-           HERO
-           ============================================ */
-        .hero {
-            padding: 140px 0 80px;
-            text-align: center;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 16px 6px 10px;
-            background: var(--accent-light);
-            border-radius: 100px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--accent);
-            margin-bottom: 28px;
-        }
-
-        .hero-badge-dot {
-            width: 7px;
-            height: 7px;
-            background: var(--accent);
-            border-radius: 50%;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.8); }
-        }
-
-        .hero h1 {
-            font-size: clamp(44px, 7vw, 76px);
-            font-weight: 800;
-            line-height: 1.05;
-            letter-spacing: -2px;
-            margin-bottom: 20px;
-            color: var(--black);
-        }
-
-        .hero h1 .highlight {
-            color: var(--accent);
-        }
-
-        .hero-sub {
-            font-size: clamp(17px, 2vw, 19px);
-            color: var(--text-secondary);
-            max-width: 460px;
-            margin: 0 auto 36px;
-            line-height: 1.6;
-        }
-
-        .hero-ctas {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .hero-trust {
-            font-size: 13px;
-            color: var(--text-tertiary);
+        .hint {
             margin-top: 14px;
+            font-size: 13px;
+            color: #aaa;
         }
 
-        /* Phone Mockup */
-        .hero-phone {
-            margin-top: 56px;
+        /* ============================================
+           RIGHT — phone mockup
+           ============================================ */
+        .visual {
+            grid-area: visual;
             display: flex;
+            align-items: center;
             justify-content: center;
+            padding: 40px 48px 40px 0;
+            min-height: 0;
         }
 
         .phone-frame {
-            width: 300px;
-            height: 620px;
+            width: 280px;
+            max-height: 80vh;
+            aspect-ratio: 9 / 19.5;
             background: var(--black);
-            border-radius: 40px;
-            padding: 10px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.06);
+            border-radius: 36px;
+            padding: 8px;
+            box-shadow: 0 24px 48px rgba(0,0,0,0.10);
         }
 
         .phone-screen {
             width: 100%;
             height: 100%;
-            border-radius: 32px;
+            border-radius: 29px;
             overflow: hidden;
         }
 
-        .phone-screen img,
-        .phone-screen video {
+        .phone-screen img {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -286,450 +215,122 @@
         }
 
         /* ============================================
-           HOW IT WORKS
-           ============================================ */
-        .how-it-works {
-            padding: 100px 0;
-            background: var(--white);
-        }
-
-        .section-label {
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--accent);
-            margin-bottom: 12px;
-        }
-
-        .section-title {
-            font-size: clamp(32px, 4.5vw, 48px);
-            font-weight: 800;
-            letter-spacing: -1px;
-            line-height: 1.1;
-            margin-bottom: 12px;
-            color: var(--black);
-        }
-
-        .section-subtitle {
-            font-size: 17px;
-            color: var(--text-secondary);
-            max-width: 440px;
-            line-height: 1.6;
-            margin-bottom: 56px;
-        }
-
-        .steps {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .step {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 36px 28px;
-            transition: all 0.3s ease;
-        }
-
-        .step:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
-        }
-
-        .step-number {
-            width: 36px;
-            height: 36px;
-            background: var(--accent);
-            color: var(--white);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 15px;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        .step h3 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--black);
-        }
-
-        .step p {
-            font-size: 15px;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        /* ============================================
-           FEATURES — compact 3-col
-           ============================================ */
-        .features {
-            padding: 100px 0;
-            background: var(--bg);
-        }
-
-        .features .section-label,
-        .features .section-title,
-        .features .section-subtitle {
-            text-align: center;
-        }
-
-        .features .section-subtitle {
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .feature-card {
-            background: var(--white);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 32px 24px;
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
-        }
-
-        .feature-icon {
-            width: 44px;
-            height: 44px;
-            background: var(--accent-light);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 16px;
-        }
-
-        .feature-icon svg {
-            width: 22px;
-            height: 22px;
-            color: var(--accent);
-        }
-
-        .feature-card h3 {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 6px;
-            color: var(--black);
-        }
-
-        .feature-card p {
-            font-size: 14px;
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
-
-        /* ============================================
-           CTA SECTION — warm bg
-           ============================================ */
-        .cta-section {
-            padding: 100px 0;
-            text-align: center;
-            background: var(--black);
-            color: var(--white);
-        }
-
-        .cta-section h2 {
-            font-size: clamp(36px, 5vw, 56px);
-            font-weight: 800;
-            letter-spacing: -1.5px;
-            line-height: 1.1;
-            margin-bottom: 14px;
-            color: var(--white);
-        }
-
-        .cta-section .cta-sub {
-            font-size: 17px;
-            color: rgba(255,255,255,0.55);
-            margin-bottom: 36px;
-        }
-
-        .cta-section .waitlist-form input[type="email"] {
-            background: rgba(255,255,255,0.1);
-            border-color: rgba(255,255,255,0.15);
-            color: var(--white);
-        }
-
-        .cta-section .waitlist-form input[type="email"]:focus {
-            border-color: var(--accent);
-        }
-
-        .cta-section .waitlist-form input[type="email"]::placeholder {
-            color: rgba(255,255,255,0.35);
-        }
-
-        .cta-section .waitlist-form button {
-            background: var(--accent);
-            color: var(--white);
-        }
-
-        .cta-section .waitlist-success {
-            background: rgba(255,105,0,0.15);
-            color: var(--accent);
-        }
-
-        /* ============================================
            FOOTER
            ============================================ */
-        footer {
-            padding: 36px 0;
-            background: var(--bg);
-            border-top: 1px solid var(--border);
-        }
-
-        footer .container {
+        .foot {
+            grid-area: footer;
+            padding: 20px 48px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
-        .footer-left {
             font-size: 13px;
-            color: var(--text-tertiary);
+            color: #aaa;
         }
 
-        .footer-links {
+        .foot-links {
             display: flex;
-            gap: 24px;
+            gap: 20px;
         }
 
-        .footer-links a {
-            font-size: 13px;
-            color: var(--text-tertiary);
+        .foot-links a {
+            color: #aaa;
             transition: color 0.2s;
         }
 
-        .footer-links a:hover {
-            color: var(--text-primary);
-        }
+        .foot-links a:hover { color: var(--black); }
 
         /* ============================================
-           RESPONSIVE
+           MOBILE
            ============================================ */
         @media (max-width: 768px) {
-            .container { padding: 0 20px; }
+            body { overflow: auto; height: auto; }
 
-            .steps { grid-template-columns: 1fr; }
-            .feature-grid { grid-template-columns: 1fr; }
+            .page {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "logo"
+                    "copy"
+                    "visual"
+                    "footer";
+                grid-template-rows: auto auto auto auto;
+            }
 
-            .hero h1 { letter-spacing: -1px; }
+            .logo { padding: 24px 24px 0; }
+
+            .copy {
+                padding: 40px 24px;
+                justify-content: flex-start;
+            }
+
+            .copy h1 { font-size: 36px; letter-spacing: -1px; }
+
+            .waitlist-form {
+                flex-wrap: wrap;
+                max-width: 100%;
+            }
+
+            .waitlist-form input[type="email"] { min-width: 0; }
+
+            .visual {
+                padding: 0 24px 40px;
+                justify-content: center;
+            }
 
             .phone-frame {
-                width: 260px;
-                height: 540px;
+                width: 220px;
+                max-height: none;
             }
 
-            footer .container {
+            .foot {
+                padding: 20px 24px;
                 flex-direction: column;
+                gap: 12px;
                 text-align: center;
             }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .feature-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        /* ============================================
-           ANIMATIONS
-           ============================================ */
-        .fade-up {
-            opacity: 0;
-            transform: translateY(24px);
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="container">
-            <div class="nav-logo">Haul</div>
-            <a href="#cta" class="nav-cta">Get Early Access</a>
+    <div class="page">
+        <div class="logo">Haul</div>
+
+        <div class="copy">
+            <h1>See it. Scan it.<br>Shop it.</h1>
+            <p class="sub">Screenshot any outfit and instantly find where to buy every piece. From the jacket to the shoes.</p>
+
+            <form class="waitlist-form" id="hero-waitlist" onsubmit="return handleWaitlist(event, this)">
+                <input type="email" placeholder="Your email" required autocomplete="email">
+                <button type="submit">Get Early Access</button>
+            </form>
+            <div class="waitlist-success" id="hero-success">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                You're in! We'll email you at launch.
+            </div>
+            <div class="waitlist-error" id="hero-error"></div>
+            <p class="hint">Coming soon to iOS. Free to use.</p>
         </div>
-    </nav>
 
-    <!-- HERO -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-badge">
-                <div class="hero-badge-dot"></div>
-                Coming soon to iOS
-            </div>
-
-            <h1>
-                See it. Scan it.<br>
-                <span class="highlight">Shop it.</span>
-            </h1>
-
-            <p class="hero-sub">
-                Screenshot any outfit &mdash; Haul finds where to buy every piece. From the jacket to the shoes.
-            </p>
-
-            <div class="hero-ctas" id="waitlist">
-                <form class="waitlist-form" id="hero-waitlist" onsubmit="return handleWaitlist(event, this)">
-                    <input type="email" placeholder="Your email" required autocomplete="email">
-                    <button type="submit">Get Early Access</button>
-                </form>
-                <div class="waitlist-success" id="hero-success">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-                    You're in! We'll email you at launch.
-                </div>
-                <div class="waitlist-error" id="hero-error"></div>
-            </div>
-
-            <p class="hero-trust">Free forever. Works with Instagram, TikTok, Pinterest & any app.</p>
-
-            <div class="hero-phone">
-                <div class="phone-frame">
-                    <div class="phone-screen">
-                        <video id="demo-video" src="demo.mp4" autoplay muted playsinline loop preload="auto" poster="app-screenshot.png"></video>
-                    </div>
+        <div class="visual">
+            <div class="phone-frame">
+                <div class="phone-screen">
+                    <img src="app-screenshot.png" alt="Haul app screenshot">
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- HOW IT WORKS -->
-    <section class="how-it-works" id="how-it-works">
-        <div class="container">
-            <div class="section-label fade-up">How it works</div>
-            <h2 class="section-title fade-up">Three taps to any look.</h2>
-            <p class="section-subtitle fade-up">Stop searching for hours. Haul does it in seconds.</p>
-
-            <div class="steps">
-                <div class="step fade-up">
-                    <div class="step-number">1</div>
-                    <h3>Screenshot it</h3>
-                    <p>See an outfit you love on Instagram, TikTok, or anywhere? Just screenshot it.</p>
-                </div>
-
-                <div class="step fade-up" style="transition-delay: 0.1s">
-                    <div class="step-number">2</div>
-                    <h3>Share to Haul</h3>
-                    <p>Tap share, select Haul. Every item gets identified &mdash; jackets, shoes, bags, all of it.</p>
-                </div>
-
-                <div class="step fade-up" style="transition-delay: 0.2s">
-                    <div class="step-number">3</div>
-                    <h3>Shop the look</h3>
-                    <p>Browse matching products from hundreds of stores. Compare prices and buy directly.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FEATURES -->
-    <section class="features">
-        <div class="container">
-            <div class="section-label fade-up">Why Haul</div>
-            <h2 class="section-title fade-up">Everything you need to find the look.</h2>
-            <p class="section-subtitle fade-up">No more reverse image searches that lead nowhere.</p>
-
-            <div class="feature-grid">
-                <div class="feature-card fade-up">
-                    <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z" /></svg>
-                    </div>
-                    <h3>Works from any app</h3>
-                    <p>Share a screenshot from Instagram, TikTok, Pinterest, Safari &mdash; Haul works with all of them.</p>
-                </div>
-
-                <div class="feature-card fade-up" style="transition-delay: 0.08s">
-                    <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /></svg>
-                    </div>
-                    <h3>Every item, identified</h3>
-                    <p>Jacket, jeans, bag, shoes &mdash; each piece gets recognized and matched to real products.</p>
-                </div>
-
-                <div class="feature-card fade-up" style="transition-delay: 0.16s">
-                    <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" /></svg>
-                    </div>
-                    <h3>Save your favorites</h3>
-                    <p>Love a piece? Save it. Come back anytime to compare or buy when you're ready.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="cta-section" id="cta">
-        <div class="container">
-            <h2 class="fade-up">Stop scrolling.<br>Start shopping.</h2>
-            <p class="cta-sub fade-up">Be the first to try Haul when we launch.</p>
-            <div class="fade-up">
-                <form class="waitlist-form" id="cta-waitlist" onsubmit="return handleWaitlist(event, this)" style="margin: 0 auto;">
-                    <input type="email" placeholder="Your email" required autocomplete="email">
-                    <button type="submit">Get Early Access</button>
-                </form>
-                <div class="waitlist-success" id="cta-success">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-                    You're in!
-                </div>
-                <div class="waitlist-error" id="cta-error"></div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <div class="footer-left">&copy; 2026 Haul</div>
-            <div class="footer-links">
+        <div class="foot">
+            <span>&copy; 2026 Haul</span>
+            <div class="foot-links">
                 <a href="/privacy">Privacy</a>
                 <a href="/terms">Terms</a>
                 <a href="/support">Support</a>
                 <a href="mailto:haulapp.com@gmail.com">Contact</a>
             </div>
         </div>
-    </footer>
+    </div>
 
     <script>
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-        const video = document.getElementById('demo-video');
-        if (video) {
-            video.play().catch(() => {});
-            const videoObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) video.play().catch(() => {});
-                    else video.pause();
-                });
-            }, { threshold: 0.1 });
-            videoObserver.observe(video);
-            document.addEventListener('touchstart', function iosPlay() {
-                video.play().catch(() => {});
-                document.removeEventListener('touchstart', iosPlay);
-            }, { once: true });
-        }
-
         const SUPABASE_URL = 'https://wmhxzklzbzdlwcgejema.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndtaHh6a2x6YnpkbHdjZ2VqZW1hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0MDk2NjUsImV4cCI6MjA4ODk4NTY2NX0.LnBw4_zbyjTSLY4eiJnEs41WKH1lPlfBI8kGR7aZMM4';
 
@@ -737,9 +338,8 @@
             e.preventDefault();
             const email = form.querySelector('input[type="email"]').value.trim();
             const btn = form.querySelector('button');
-            const formId = form.id;
-            const successEl = document.getElementById(formId.replace('waitlist', 'success'));
-            const errorEl = document.getElementById(formId.replace('waitlist', 'error'));
+            const successEl = document.getElementById('hero-success');
+            const errorEl = document.getElementById('hero-error');
 
             btn.disabled = true;
             btn.textContent = 'Joining...';
@@ -760,11 +360,8 @@
                 if (res.ok || res.status === 409) {
                     form.style.display = 'none';
                     successEl.classList.add('show');
-                    document.querySelectorAll('.waitlist-form').forEach(f => {
-                        if (f !== form) f.querySelector('input[type="email"]').value = email;
-                    });
                 } else {
-                    throw new Error('Something went wrong');
+                    throw new Error('fail');
                 }
             } catch (err) {
                 errorEl.textContent = 'Something went wrong. Please try again.';
@@ -772,7 +369,6 @@
                 btn.disabled = false;
                 btn.textContent = 'Get Early Access';
             }
-
             return false;
         }
     </script>
