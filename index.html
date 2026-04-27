@@ -192,14 +192,14 @@
             overflow: hidden;
         }
 
-        /* Floating product cards behind the phone */
+        /* Floating product cards across the whole page */
         .float-card {
-            position: absolute;
+            position: fixed;
             background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-            padding: 10px;
-            opacity: 0.45;
+            border-radius: 14px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            padding: 8px;
+            opacity: 0.4;
             pointer-events: none;
             z-index: 0;
         }
@@ -208,7 +208,7 @@
             width: 100%;
             aspect-ratio: 3/4;
             background: #ECEAE7;
-            border-radius: 10px;
+            border-radius: 8px;
             margin-bottom: 8px;
             overflow: hidden;
         }
@@ -235,11 +235,14 @@
             margin-top: 2px;
         }
 
-        .fc-1 { width: 120px; top: 3%; left: 6%; transform: rotate(-3deg); }
-        .fc-2 { width: 115px; top: 50%; left: 3%; transform: rotate(2deg); opacity: 0.38; }
-        .fc-3 { width: 120px; bottom: 6%; left: 8%; transform: rotate(-2deg); opacity: 0.35; }
-        .fc-4 { width: 115px; top: 8%; right: 4%; transform: rotate(4deg); opacity: 0.38; }
-        .fc-5 { width: 110px; bottom: 10%; right: 5%; transform: rotate(-4deg); opacity: 0.32; }
+        /* Spread across the entire viewport */
+        .fc-1 { width: 110px; top: 5%; left: 3%; transform: rotate(-3deg); }
+        .fc-2 { width: 105px; top: 8%; right: 3%; transform: rotate(4deg); opacity: 0.35; }
+        .fc-3 { width: 100px; top: 38%; left: 1%; transform: rotate(2deg); opacity: 0.35; }
+        .fc-4 { width: 108px; top: 42%; right: 2%; transform: rotate(-3deg); }
+        .fc-5 { width: 105px; bottom: 18%; left: 4%; transform: rotate(-2deg); opacity: 0.35; }
+        .fc-6 { width: 100px; bottom: 5%; left: 18%; transform: rotate(3deg); opacity: 0.32; }
+        .fc-7 { width: 108px; bottom: 12%; right: 4%; transform: rotate(-4deg); opacity: 0.35; }
 
         .phone-mockup {
             position: relative;
@@ -292,18 +295,25 @@
                 grid-template-rows: auto auto auto auto;
             }
 
-            .logo { padding: 24px 24px 0; }
+            .logo { padding: 24px 24px 0; text-align: center; }
 
             .copy {
                 padding: 40px 24px;
                 justify-content: flex-start;
+                align-items: center;
+                text-align: center;
             }
 
             .copy h1 { font-size: 36px; letter-spacing: -1px; }
 
+            .copy .sub { margin-left: auto; margin-right: auto; }
+
+            .hint { text-align: center; }
+
             .waitlist-form {
                 flex-direction: column;
                 max-width: 280px;
+                align-items: center;
             }
 
             .waitlist-form input[type="email"] {
@@ -359,29 +369,39 @@
 
         <div class="visual">
             <div class="float-card fc-1">
-                <div class="fc-img"><img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=200&h=280&fit=crop&crop=center" alt="Satin dress"></div>
-                <div class="fc-name">Satin Midi Dress</div>
-                <div class="fc-price">$68</div>
-            </div>
-            <div class="float-card fc-2">
-                <div class="fc-img"><img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=200&h=280&fit=crop&crop=center" alt="Designer bag"></div>
-                <div class="fc-name">Mini Crossbody Bag</div>
-                <div class="fc-price">$125</div>
-            </div>
-            <div class="float-card fc-3">
-                <div class="fc-img"><img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=200&h=280&fit=crop&crop=center" alt="Heels"></div>
-                <div class="fc-name">Strappy Block Heels</div>
+                <div class="fc-img"><img src="products/p1.jpg" alt="Heels"></div>
+                <div class="fc-name">Heels</div>
                 <div class="fc-price">$79</div>
             </div>
+            <div class="float-card fc-2">
+                <div class="fc-img"><img src="products/p2.jpg" alt="Dress"></div>
+                <div class="fc-name">Dress</div>
+                <div class="fc-price">$45</div>
+            </div>
+            <div class="float-card fc-3">
+                <div class="fc-img"><img src="products/p3.jpg" alt="Crop Top"></div>
+                <div class="fc-name">Crop Top</div>
+                <div class="fc-price">$28</div>
+            </div>
             <div class="float-card fc-4">
-                <div class="fc-img"><img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=200&h=280&fit=crop&crop=center" alt="Trench coat"></div>
-                <div class="fc-name">Oversized Trench</div>
-                <div class="fc-price">$145</div>
+                <div class="fc-img"><img src="products/p4.jpg" alt="Blazer"></div>
+                <div class="fc-name">Blazer</div>
+                <div class="fc-price">$95</div>
             </div>
             <div class="float-card fc-5">
-                <div class="fc-img"><img src="https://images.unsplash.com/photo-1612336307429-8a898d10e223?w=200&h=280&fit=crop&crop=center" alt="Sunglasses"></div>
-                <div class="fc-name">Cat Eye Sunglasses</div>
-                <div class="fc-price">$42</div>
+                <div class="fc-img"><img src="products/p5.jpg" alt="Skirt"></div>
+                <div class="fc-name">Skirt</div>
+                <div class="fc-price">$35</div>
+            </div>
+            <div class="float-card fc-6">
+                <div class="fc-img"><img src="products/p6.jpg" alt="Handbag"></div>
+                <div class="fc-name">Handbag</div>
+                <div class="fc-price">$65</div>
+            </div>
+            <div class="float-card fc-7">
+                <div class="fc-img"><img src="products/p7.jpg" alt="Cap"></div>
+                <div class="fc-name">Cap</div>
+                <div class="fc-price">$22</div>
             </div>
 
             <img class="phone-mockup" src="phone-mockup.png" alt="Haul app — outfit scan with bounding boxes and product results">
